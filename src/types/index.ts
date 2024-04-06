@@ -1,6 +1,11 @@
 export interface RootState {
     pokemonsUrlsData: PokemonsUrlsState;
     pokemonsList: PokemonsState;
+    pokemonDetails: PokemonDetails;
+}
+
+type PokemonDetails = {
+    pokemon: Pokemon
 }
 
 type PokemonsUrls = {

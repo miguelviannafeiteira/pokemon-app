@@ -1,20 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Pagination } from "@mui/material";
-import { ChangeEvent, useEffect, useMemo, useState } from "react"
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react"
 
 import { RootState } from "./types";
+import { Modal } from "./components/Modal";
+import { useModal } from "./hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
 import { GetPokemonsUseCase } from "./useCases/GetPokemonsUseCase";
 import { getPokemonTypeBackgroundColor, getPokemonTypeColor } from "./types/pokemonTypes";
 
 function App() {
+  const modalRef = useRef<HTMLDivElement>(null)
   const [currentPage, setCurrentPage] = useState(1)
 
   const dispatch = useDispatch();
   const getPokemons = useMemo(() => new GetPokemonsUseCase(dispatch), [])
+  const { outSideClick, showModal, isModalVisible, hideModal } = useModal()
 
   const loading = useSelector((state: RootState) => state.pokemonsList?.loading);
   const pokemons = useSelector((state: RootState) => state.pokemonsList.pokemonsList);
+  const pokemonDetails = useSelector((state: RootState) => state.pokemonDetails.pokemon);
   const total = useSelector((state: RootState) => state.pokemonsUrlsData.pokemonsUrls.count);
 
   const changePage = (event: ChangeEvent<unknown>, value: number) => {
@@ -26,12 +31,20 @@ function App() {
     getPokemons.execute()
   }, [])
 
+  useEffect(() => {
+    outSideClick(modalRef)
+  })
+
+  console.log(pokemonDetails);
+
+
   return (
     <div className="w-screen">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full mt-28">
         {pokemons?.map((pokemon) => (
           <div
             key={pokemon.name}
+            onClick={() => showModal(pokemon)}
             style={{ backgroundColor: getPokemonTypeBackgroundColor(pokemon.types[0].type.name) }}
             className={`justify-self-center flex w-[200px] p-5 rounded-2xl shadow-md cursor-pointer`}
           >
@@ -51,14 +64,21 @@ function App() {
         ))}
 
       </div>
-        <Pagination
-          count={Math.ceil(total / 20)}
-          page={currentPage}
-          onChange={changePage}
-          className="w-max mx-auto mt-10"
-          variant="outlined"
-          shape="rounded"
-        />
+      <Pagination
+        count={Math.ceil(total / 20)}
+        page={currentPage}
+        onChange={changePage}
+        className="w-max mx-auto mt-10"
+        variant="outlined"
+        shape="rounded"
+      />
+
+      <Modal isVisible={isModalVisible} modalRef={modalRef} onClose={hideModal}>
+        <p className="text-black">
+
+          {pokemonDetails.id}
+        </p>
+      </Modal>
     </div >
   )
 }
