@@ -18,9 +18,6 @@ export function PokemonDetails({ pokemon, closeModal }: Props) {
         setSelectedTab(tabValue);
     };
 
-    console.log(pokemon);
-
-
     return (
         <div className=" md:w-[300px] lg:w-[500px]">
             <header
