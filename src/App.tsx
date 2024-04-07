@@ -6,9 +6,11 @@ import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react"
 import { RootState } from "./types";
 import { Modal } from "./components/Modal";
 import { useModal } from "./hooks/useModal";
+import { Header } from "./components/Header";
 import { PokemonCard } from "./components/PokemonCard";
 import { ShimmerEffect } from "./components/ShimmerEffect";
 import { PokemonDetails } from "./components/PokemonDetails";
+import { PokemonNotFound } from "./components/PokemonNotFound";
 import { GetPokemonsUseCase } from "./useCases/GetPokemonsUseCase";
 
 function App() {
@@ -39,12 +41,14 @@ function App() {
 
   return (
     <div className="w-screen">
+      <Header />
+
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full mt-28">
-        {pokemons?.map((pokemon, index) => (
+        {pokemons.length > 0 ? (pokemons?.map((pokemon, index) => (
           <ShimmerEffect isLoading={loading} className="w-[230px] h-[150px] rounded-lg" key={pokemon.id + index}>
             <PokemonCard pokemon={pokemon} showModal={showModal} key={pokemon.id + index} />
           </ShimmerEffect>
-        ))}
+        ))) : (<PokemonNotFound />)}
 
       </div>
       <Pagination

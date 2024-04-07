@@ -1,8 +1,8 @@
 import { Dispatch } from "redux";
-import { getPokemons } from "../services/getPokemon";
+import { getPokemons } from "../services/getPokemons";
 import { getAllPokemonsUrls } from "../services/getAllPokemons";
-import { fetchPokemonsRequest, fetchPokemonsSuccess } from "../redux/pokemonsActions";
 import { fetchPokemonsUrlsSuccess } from "../redux/pokemonsUrlsActions";
+import { fetchPokemonsRequest, fetchPokemonsSuccess } from "../redux/pokemonsActions";
 
 export class GetPokemonsUseCase {
     private dispatch: Dispatch

@@ -7,7 +7,6 @@ const initialState: PokemonsState = {
 };
 
 export const pokemonsReducer = (state = initialState, action: PokemonsActions) => {
-    
     switch (action.type) {
         case FETCH_POKEMONS_REQUEST:
             return { ...state, loading: true, error: null };
