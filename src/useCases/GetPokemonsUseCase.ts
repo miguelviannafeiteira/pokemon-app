@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import { getPokemons } from "../services/getPokemon";
 import { getAllPokemonsUrls } from "../services/getAllPokemons";
 import { fetchPokemonsRequest, fetchPokemonsSuccess } from "../redux/pokemonsActions";
-import { fetchPokemonsUrlsRequest, fetchPokemonsUrlsSuccess } from "../redux/pokemonsUrlsActions";
+import { fetchPokemonsUrlsSuccess } from "../redux/pokemonsUrlsActions";
 
 export class GetPokemonsUseCase {
     private dispatch: Dispatch
@@ -13,11 +13,10 @@ export class GetPokemonsUseCase {
 
     async execute(pageValue = 1) {
         try {
-            this.dispatch(fetchPokemonsUrlsRequest());
+            this.dispatch(fetchPokemonsRequest())
             const urls = await getAllPokemonsUrls(pageValue)
             this.dispatch(fetchPokemonsUrlsSuccess(urls))
 
-            this.dispatch(fetchPokemonsRequest())
             const pokemons = await getPokemons(urls.results.map((result) => result.url))
             this.dispatch(fetchPokemonsSuccess(pokemons))
         }

@@ -4,10 +4,10 @@ type PokemonTypeColorMap = {
 
 const typeColorMap: PokemonTypeColorMap = {
     "normal": "#C7C7C7",
-    "fire": "#FFC1A6",
-    "water": "#9CB3FF",
-    "electric": "#FFF8B8",
-    "grass": "#AAD288",
+    "fire": "#F88C8C",
+    "water": "#8FD1FE",
+    "electric": "#FFE580",
+    "grass": "#61E0C9",
     "ice": "#BFE9E9",
     "fighting": "#E08C82",
     "poison": "#C492C4",
@@ -27,16 +27,16 @@ export function getPokemonTypeColor(type: string): string {
     if (type in typeColorMap) {
         return typeColorMap[type];
     } else {
-        return "#FFFFFF"; 
+        return "#FFFFFF";
     }
 }
 
 export const typeBackgroundColorMap: PokemonTypeColorMap = {
     "normal": "#A8A878",
-    "fire": "#F08030",
-    "water": "#6890F0",
-    "electric": "#F8D030",
-    "grass": "#78C850",
+    "fire": "#FB6C6C",
+    "water": "#75BBFD",
+    "electric": "#FFD86F",
+    "grass": "#48D0B0",
     "ice": "#98D8D8",
     "fighting": "#C03028",
     "poison": "#A040A0",
@@ -56,6 +56,6 @@ export function getPokemonTypeBackgroundColor(type: string): string {
     if (type in typeBackgroundColorMap) {
         return typeBackgroundColorMap[type];
     } else {
-        return "#FFFFFF"; 
+        return "#FFFFFF";
     }
 }

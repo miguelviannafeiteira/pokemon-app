@@ -10,8 +10,6 @@ export class getPokemonDetailsUseCase {
     }
 
     getDetails(pokemon: Pokemon) {
-        console.log(pokemon);
-
         this.dispatch(getPokemon(pokemon))
     }
 }

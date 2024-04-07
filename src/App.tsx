@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Pagination } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react"
 
 import { RootState } from "./types";
 import { Modal } from "./components/Modal";
 import { useModal } from "./hooks/useModal";
-import { useDispatch, useSelector } from "react-redux";
+import { PokemonCard } from "./components/PokemonCard";
+import { ShimmerEffect } from "./components/ShimmerEffect";
+import { PokemonDetails } from "./components/PokemonDetails";
 import { GetPokemonsUseCase } from "./useCases/GetPokemonsUseCase";
-import { getPokemonTypeBackgroundColor, getPokemonTypeColor } from "./types/pokemonTypes";
 
 function App() {
   const modalRef = useRef<HTMLDivElement>(null)
@@ -17,12 +19,12 @@ function App() {
   const getPokemons = useMemo(() => new GetPokemonsUseCase(dispatch), [])
   const { outSideClick, showModal, isModalVisible, hideModal } = useModal()
 
-  const loading = useSelector((state: RootState) => state.pokemonsList?.loading);
+  const loading = useSelector((state: RootState) => state.pokemonsList.loading);
   const pokemons = useSelector((state: RootState) => state.pokemonsList.pokemonsList);
   const pokemonDetails = useSelector((state: RootState) => state.pokemonDetails.pokemon);
   const total = useSelector((state: RootState) => state.pokemonsUrlsData.pokemonsUrls.count);
 
-  const changePage = (event: ChangeEvent<unknown>, value: number) => {
+  const changePage = (_event: ChangeEvent<unknown>, value: number) => {
     getPokemons.execute(value)
     setCurrentPage(value);
   };
@@ -35,32 +37,13 @@ function App() {
     outSideClick(modalRef)
   })
 
-  console.log(pokemonDetails);
-
-
   return (
     <div className="w-screen">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full mt-28">
-        {pokemons?.map((pokemon) => (
-          <div
-            key={pokemon.name}
-            onClick={() => showModal(pokemon)}
-            style={{ backgroundColor: getPokemonTypeBackgroundColor(pokemon.types[0].type.name) }}
-            className={`justify-self-center flex w-[200px] p-5 rounded-2xl shadow-md cursor-pointer`}
-          >
-            <div>
-              <p className="text-[#fff] font-semibold capitalize text-lg">{pokemon?.name}</p>
-              {pokemon.types.map((type) => (
-                <span
-                  className="p-1 rounded-3xl grid mt-2 text-center capitalize text-sm"
-                  style={{ backgroundColor: getPokemonTypeColor(pokemon.types[0].type.name) }}
-                >
-                  {type.type.name}</span>
-              ))}
-            </div>
-
-            <img className="justify-self-end" src={pokemon.sprites.front_default} alt="" />
-          </div>
+        {pokemons?.map((pokemon, index) => (
+          <ShimmerEffect isLoading={loading} className="w-[230px] h-[150px] rounded-lg" key={pokemon.id + index}>
+            <PokemonCard pokemon={pokemon} showModal={showModal} key={pokemon.id + index} />
+          </ShimmerEffect>
         ))}
 
       </div>
@@ -73,28 +56,11 @@ function App() {
         shape="rounded"
       />
 
-      <Modal isVisible={isModalVisible} modalRef={modalRef} onClose={hideModal}>
-        <p className="text-black">
-
-          {pokemonDetails.id}
-        </p>
+      <Modal isVisible={isModalVisible} modalRef={modalRef}>
+        <PokemonDetails pokemon={pokemonDetails} closeModal={hideModal} />
       </Modal>
     </div >
   )
 }
 
 export default App
-
-{/* <div>
-  {pokemon.abilities.map((ability) => (
-    <span>{ability.ability.name}</span>
-  ))}
-</div>
-<div>
-  {pokemon.stats.map((state) => (
-    <>
-      <span>{state.stat.name}</span>
-      <span>{state.base_stat}</span>
-    </>
-  ))}
-</div> */}
