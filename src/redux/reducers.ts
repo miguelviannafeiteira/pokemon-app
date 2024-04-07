@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import { pokemonReducer } from './pokemonReducer';
 import { pokemonsReducer } from './pokemonsReducer';
+import { paginationReducer } from './paginationReducer';
 import { pokemonsUrlsReducer } from './pokemonsUrlsReducer';
 
 const rootReducer = combineReducers({
-  pokemonDetails: pokemonReducer,
   pokemonsList: pokemonsReducer,
+  currentPage: paginationReducer,
+  pokemonDetails: pokemonReducer,
   pokemonsUrlsData: pokemonsUrlsReducer,
 });
 

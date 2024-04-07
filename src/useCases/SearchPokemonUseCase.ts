@@ -1,8 +1,9 @@
 import { Dispatch } from "redux";
+import { changePage } from "../redux/paginationActions";
 import { searchPokemon } from "../services/searchPokemon";
-import { fetchPokemonsRequest, fetchPokemonsSuccess } from "../redux/pokemonsActions";
 import { GetPokemonsUseCase } from "./GetPokemonsUseCase";
 import { fetchPokemonsUrlsSuccess } from "../redux/pokemonsUrlsActions";
+import { fetchPokemonsRequest, fetchPokemonsSuccess } from "../redux/pokemonsActions";
 
 export class SearchPokemonUseCase {
     private dispatch: Dispatch
@@ -15,7 +16,7 @@ export class SearchPokemonUseCase {
 
     async execute(pokemonName: string) {
         if (!pokemonName) {
-
+            this.dispatch(changePage(1))
             this.getAllPokemons.execute()
             return
         }

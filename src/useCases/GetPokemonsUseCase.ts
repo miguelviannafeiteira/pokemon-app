@@ -3,6 +3,7 @@ import { getPokemons } from "../services/getPokemons";
 import { getAllPokemonsUrls } from "../services/getAllPokemons";
 import { fetchPokemonsUrlsSuccess } from "../redux/pokemonsUrlsActions";
 import { fetchPokemonsRequest, fetchPokemonsSuccess } from "../redux/pokemonsActions";
+import { changePage } from "../redux/paginationActions";
 
 export class GetPokemonsUseCase {
     private dispatch: Dispatch
@@ -12,6 +13,7 @@ export class GetPokemonsUseCase {
     }
 
     async execute(pageValue = 1) {
+        this.dispatch(changePage(pageValue))
         try {
             this.dispatch(fetchPokemonsRequest())
             const urls = await getAllPokemonsUrls(pageValue)

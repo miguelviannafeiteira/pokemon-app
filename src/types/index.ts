@@ -2,6 +2,11 @@ export interface RootState {
     pokemonsUrlsData: PokemonsUrlsState;
     pokemonsList: PokemonsState;
     pokemonDetails: PokemonDetails;
+    currentPage: CurrentPage;
+}
+
+type CurrentPage = {
+    value: number
 }
 
 type PokemonDetails = {
