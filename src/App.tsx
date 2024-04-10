@@ -40,7 +40,7 @@ function App() {
   })
 
   return (
-    <div className="w-screen">
+    <div className="w-full overflow-x-hidden">
       <Header />
       {loading ? (
         <div className="flex justify-center mt-20" >
