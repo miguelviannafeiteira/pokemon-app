@@ -32,6 +32,7 @@ export function PokemonDetails({ pokemon, closeModal }: Props) {
                         <div className="flex gap-1">
                             {pokemon.types.map((type) => (
                                 <span
+                                    key={type.type.name}
                                     style={{ backgroundColor: getPokemonTypeColor(pokemon.types[0].type.name) }}
                                     className="py-1 px-3 rounded-3xl grid mt-2 text-center capitalize text-sm font-semibold"
                                 >
@@ -63,12 +64,12 @@ export function PokemonDetails({ pokemon, closeModal }: Props) {
                         </TabPanel>
 
                         <TabPanel value="about">
-                            <div className="flex gap-2 justify-between pb-1 border-b-[1px] border-b-[#f4f4f4f4]">
+                            <div data-testid="abilities" className="flex gap-2 justify-between pb-1 border-b-[1px] border-b-[#f4f4f4f4]">
 
                                 <span className="text-[#C4C6C9] font-bold">Habilidades</span>
                                 <div className="flex gap-2">
                                     {pokemon.abilities.map((ability) => (
-                                        <p className="text-[#222222] font-bold">{ability.ability.name}</p>
+                                        <p key={ability.ability.name} className="text-[#222222] font-bold">{ability.ability.name}</p>
                                     ))}
                                 </div>
 
@@ -76,7 +77,6 @@ export function PokemonDetails({ pokemon, closeModal }: Props) {
                             <LabelValueComponent label="Peso" value={pokemon.weight} />
                             <LabelValueComponent label="Altura" value={pokemon.height} />
                             <LabelValueComponent label="Experiência Base" value={pokemon.base_experience} />
-                            {/* // <LabelValueComponent key={ability.ability.name} label={"Habilidades"} value={ability.ability.name} /> */}
                         </TabPanel>
                     </Box>
                 </TabContext>

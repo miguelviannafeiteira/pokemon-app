@@ -25,7 +25,7 @@ export function Header() {
 
     return (
         <header className="w-full h-20 bg-[#d3d3d3] flex items-center justify-center lg:justify-start">
-            <Input onSubmit={submitSearch} onChange={handleInputChange} value={inputValue} />
+            <Input placeholder="Busque pelo pokemon" onSubmit={submitSearch} onChange={handleInputChange} value={inputValue} />
         </header>
     )
 }

@@ -45,7 +45,7 @@ function App() {
       <Header />
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full mt-10">
-        {pokemons.length > 0 ? (pokemons?.map((pokemon, index) => (
+        {pokemons.length > 0 && !loading ? (pokemons?.map((pokemon, index) => (
           <ShimmerEffect isLoading={loading} className="w-[230px] h-[150px] rounded-lg" key={pokemon.id + index}>
             <PokemonCard pokemon={pokemon} showModal={showModal} key={pokemon.id + index} />
           </ShimmerEffect>

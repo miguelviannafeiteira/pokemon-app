@@ -9,6 +9,7 @@ type Props = {
 export function PokemonCard({ pokemon, showModal }: Props) {
     return (
         <div
+            data-testid="pokemon-card"
             onClick={() => showModal(pokemon)}
             style={{ backgroundColor: getPokemonTypeBackgroundColor(pokemon.types[0].type.name) }}
             className={`justify-self-center flex justify-between w-[230px] p-5 rounded-2xl shadow-md cursor-pointer`}
