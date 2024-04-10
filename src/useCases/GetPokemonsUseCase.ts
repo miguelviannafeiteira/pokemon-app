@@ -1,9 +1,9 @@
 import { Dispatch } from "redux";
 import { getPokemons } from "../services/getPokemons";
-import { getAllPokemonsUrls } from "../services/getAllPokemons";
+import { changePage } from "../redux/paginationActions";
+import { getAllPokemonsUrls } from "../services/getAllPokemonsUrls";
 import { fetchPokemonsUrlsSuccess } from "../redux/pokemonsUrlsActions";
 import { fetchPokemonsRequest, fetchPokemonsSuccess } from "../redux/pokemonsActions";
-import { changePage } from "../redux/paginationActions";
 
 export class GetPokemonsUseCase {
     private dispatch: Dispatch
